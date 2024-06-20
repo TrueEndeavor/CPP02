@@ -19,7 +19,8 @@
 int main()
 {
 	int returnValue;
-	
+
+	system("clear");
 	std::cout << YELLOW << "╔═════════════════════════════════════════╗" << RESET << std::endl;
 	std::cout << YELLOW << "║ Creating default constructed object 'a' ║" << RESET << std::endl;
 	std::cout << YELLOW << "╚═════════════════════════════════════════╝" << RESET << std::endl;

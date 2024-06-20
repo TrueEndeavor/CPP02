@@ -25,6 +25,7 @@
 #define GREY "\033[0;90m"
 #define RESET "\033[0m"
 
+// Class represents a fixed-point number
 class	Fixed
 {
 	private:
@@ -38,7 +39,9 @@ class	Fixed
 		Fixed&	operator=( const Fixed &other );  // Copy assignment operator
 		~Fixed();								  // Destructor
 
+		// returns the raw value of the fixed-point value
 		int		getRawBits( void ) const;
+		// sets the raw value of the fixed-point number
 		void	setRawBits( int const raw );
 };
 

@@ -11,62 +11,56 @@
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-
+#include <bitset>
 /* 
-  Ex00: My First Class in Orthodox Canonical Form
+  Ex01: Towards a more useful fixed-point number class
+  (Fixed-Point Number Representation and Conversion)
 */
 
 int main()
 {
-	int returnValue;
-	
+	system("clear");
 	std::cout << YELLOW << "╔═════════════════════════════════════════╗" << RESET << std::endl;
 	std::cout << YELLOW << "║ Creating default constructed object 'a' ║" << RESET << std::endl;
 	std::cout << YELLOW << "╚═════════════════════════════════════════╝" << RESET << std::endl;
-
-	std::cout << CYAN << std::endl;
 	Fixed a;
-	std::cout << RESET << "Printing a's raw bits: "  << CYAN << std::endl;
-	returnValue = a.getRawBits();
-	std::cout << returnValue << std::endl;
-	std::cout << RESET << "\nSetting raw bits of 'a' to 42" << CYAN << std::endl;
-	a.setRawBits(42);
-	std::cout << RESET << "Printing again a's raw bits: "  << CYAN << std::endl;
-	returnValue = a.getRawBits();
-	std::cout << returnValue << std::endl;
+	std::cout << GREEN << "->    Calling Float constructor on  'a'    " << RESET << std::endl;
+	a = Fixed( 1234.4321f );
+	std::cout << GREEN << "->    Invoking operator overload on  'a'    " << std::endl;
+	std::cout << GREEN << a << std::endl;
+	std::cout << GREEN << "->    Calling toInt on  'a'    " << std::endl;
+	a.toInt();
+	std::cout << RESET << std::endl;
+	
+	std::cout << YELLOW << "╔═════════════════════════════════════════╗" << RESET << std::endl;
+	std::cout << YELLOW << "║  Creating Int constructor for     'b'   ║" << RESET << std::endl;
+	std::cout << YELLOW << "╚═════════════════════════════════════════╝" << RESET << std::endl;
+	std::cout << GREEN << "->    Calling Int  constructor on  'b'    " << RESET << std::endl;
+	Fixed const b( 10 );
+	std::cout << GREEN << "->    Invoking operator overload on  'b'    " << std::endl;
+	std::cout << GREEN << b << std::endl;
+	std::cout << GREEN << "->    Calling toInt on  'b'    " << std::endl;
+	b.toInt();
 	std::cout << RESET << std::endl;
 
 	std::cout << YELLOW << "╔═════════════════════════════════════════╗" << RESET << std::endl;
-	std::cout << YELLOW << "║  Creating copy constructed object 'b'   ║" << RESET << std::endl;
+	std::cout << YELLOW << "║ Creating Float constructor for      'c' ║" << RESET << std::endl;
 	std::cout << YELLOW << "╚═════════════════════════════════════════╝" << RESET << std::endl;
-	
-	std::cout << CYAN << std::endl;
-	Fixed b(a);
-	std::cout << RESET << "Printing b's raw bits: "  << CYAN << std::endl;
-	returnValue = b.getRawBits();
-	std::cout << returnValue << std::endl;
-	std::cout << RESET << "\nSetting raw bits of 'b' to 1337" << CYAN << std::endl;
-	b.setRawBits(1337);
-	std::cout << RESET << "Printing again b's raw bits: "  << CYAN << std::endl;
-	returnValue = b.getRawBits();
-	std::cout << returnValue << std::endl;
+	Fixed const c( 42.42f );
+	std::cout << GREEN << "->    Invoking operator overload on  'c'    " << std::endl;
+	std::cout << GREEN << c << std::endl;
+	std::cout << GREEN << "->    Calling toInt on  'c'    " << std::endl;
+	c.toInt();
 	std::cout << RESET << std::endl;
-
-	std::cout << YELLOW << "╔═════════════════════════════════════════╗" << RESET << std::endl;
-	std::cout << YELLOW << "║ Creating default constructed object 'c' ║" << RESET << std::endl;
-	std::cout << YELLOW << "║     and copy assigning 'b' to 'c'       ║" << RESET << std::endl;
-	std::cout << YELLOW << "╚═════════════════════════════════════════╝" << RESET << std::endl;
-
-	std::cout << CYAN << std::endl;
-	Fixed c;
-	std::cout << RESET << "Printing c's raw bits: "  << CYAN << std::endl;
-	returnValue = c.getRawBits();
-	std::cout << returnValue << std::endl;
-	std::cout << RESET << "Copy assigning object - b to c: "  << CYAN << std::endl;
-	c = b;
-	returnValue = c.getRawBits();
-	std::cout << returnValue << std::endl;
-	std::cout << std::endl;
 	
+	std::cout << YELLOW << "╔═════════════════════════════════════════╗" << RESET << std::endl;
+	std::cout << YELLOW << "║  Creating copy constructed object 'd'   ║" << RESET << std::endl;
+	std::cout << YELLOW << "╚═════════════════════════════════════════╝" << RESET << std::endl;	
+	Fixed const d( b );
+	std::cout << GREEN << "->    Invoking operator overload on  'd'    " << std::endl;
+	std::cout << GREEN << d << std::endl;
+	std::cout << GREEN << "->    Calling toInt on  'd'    " << std::endl;
+	d.toInt();
+	std::cout << RESET << std::endl;
 	return 0;
 }

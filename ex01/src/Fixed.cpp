@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+#include <bitset>
 
 const int	Fixed::fractionalBits = 8;
 
@@ -19,17 +20,14 @@ Fixed::Fixed() : value( 0 )
 	std::cout << "Default constructor called" << std::endl;
 }
 
-// Parameterized constructor - int
-Fixed( const int intVal )
+Fixed::Fixed( const int intVal ) : value ( intVal * (1 << fractionalBits) )
 {
-	this.value = (int) intVal;
-	// convert to 
+	std::cout << "Int constructor called" << std::endl;
 }
 
-// Parameterized constructor - float
-Fixed( const float floatVal )
+Fixed::Fixed( const float floatVal ) : value (  roundf(floatVal * (1 << fractionalBits) ) )
 {
-	this.value = (float) floatVal;
+	std::cout << "Float constructor called" << std::endl;
 }
 		
 Fixed::~Fixed()
@@ -63,18 +61,24 @@ void	Fixed::setRawBits( int const raw )
 	this->value = raw;
 }
 
-int		toInt( void ) const
+float	Fixed::toFloat( void ) const
 {
-	return (value >> fractionalBits)
+	std::cout << "Float value in Binary : " << std::bitset<16>(value) << std::endl;
+	float floatPart =  (float)value / (1 << fractionalBits);
+	std::cout << "              Decimal : " << floatPart << std::endl;
+	return (floatPart);
 }
 
-float	toFloat( void ) const
+int		Fixed::toInt( void ) const
 {
-	//tofloat
+	int integerPart = ( value / (1 << fractionalBits) );
+	std::cout << "Int value in Binary   : " << std::bitset<16>(value) << std::endl;
+	std::cout << "            Decimal   : " << integerPart << std::endl;
+	return (integerPart);
 }
 
-std::ostream &Fixed::operator<<(std::ostream &os, const Fixed &fixed)
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed)
 {
-	os << fixed.toFloat();
+	os<<fixed.toFloat();
 	return (os);
 }

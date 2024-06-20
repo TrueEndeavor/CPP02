@@ -46,10 +46,36 @@ class	Fixed
 		// sets the raw value of the fixed-point number
 		void	setRawBits( int const raw );
 
-		// converts the fixed-point value to an integer value
-		int		toInt( void ) const;
 		// converts the fixed-point value to a floating-point value
 		float	toFloat( void ) const;
+		// converts the fixed-point value to an integer value
+		int		toInt( void ) const;
+		
+		// 4 arithmetic operators: +, -, *, and /
+		Fixed	operator+( const Fixed &other ) const ;
+		Fixed	operator-( const Fixed &other ) const ;
+		Fixed	operator*( const Fixed &other ) const ;
+		Fixed	operator/( const Fixed &other ) const ;
+		
+		// 4 increment/decrement operators: 
+		// pre-increment and post-increment ++i, i++
+		// pre-decrement and post-decrement --i, i--
+		Fixed&	operator++();
+		Fixed&	operator--();
+		Fixed	operator++( int );
+		Fixed	operator--( int );
+
+		// 6 comparison operators: >, <, >=, <=, == and !=
+		bool	operator>( const Fixed &other ) const ;
+		bool	operator<( const Fixed &other ) const ;
+		bool	operator>=( const Fixed &other ) const ;
+		bool	operator<=( const Fixed &other ) const ;
+		bool	operator==( const Fixed &other ) const ;
+		bool	operator!=( const Fixed &other ) const ;
+
+		// Helper functions for the comparisons
+		const static Fixed	&min(Fixed const &a, Fixed const &b);
+		const static Fixed	&max(Fixed const &a, Fixed const &b);
 };
 
 // Operation overload of the insertion («) operator that inserts a floating-point representation
