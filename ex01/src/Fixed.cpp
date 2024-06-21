@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,25 +11,15 @@
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-#include <bitset>
 
 const int	Fixed::fractionalBits = 8;
 
+/***************** Orthodox Canonical Format (Rule of 3) *********************/
 Fixed::Fixed() : value( 0 )
 {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed( const int intVal ) : value ( intVal * (1 << fractionalBits) )
-{
-	std::cout << "Int constructor called" << std::endl;
-}
-
-Fixed::Fixed( const float floatVal ) : value (  roundf(floatVal * (1 << fractionalBits) ) )
-{
-	std::cout << "Float constructor called" << std::endl;
-}
-		
 Fixed::~Fixed()
 { 
 	std::cout << "Destructor called" << std::endl;
@@ -49,6 +39,26 @@ Fixed&	Fixed::operator=( const Fixed& other )
 	return (*this);
 }
 
+/************************ Parameterized constructors *************************/
+
+// Bitwise left shifting a binary number by one position is equivalent to multiplying it by 2
+// Q8.8 = 2^8
+// For example: 12 * (1 << 8) = 12 * 2^8 = 12 * 256 = 3072
+Fixed::Fixed( const int intVal ) : value ( intVal * (1 << fractionalBits) )
+{
+	std::cout << "Int constructor called" << std::endl;
+}
+
+// Bitwise left shifting a binary number by one position is equivalent to multiplying it by 2
+// Q8.8 = 2^8
+// For example: 12.75 * (1 << 8) = 12.75 * 2^8 = 12.75 * 256 = 3264 (roundf to nearest int)
+Fixed::Fixed( const float floatVal ) : value (  roundf(floatVal * (1 << fractionalBits) ) )
+{
+	std::cout << "Float constructor called" << std::endl;
+}
+
+/**************************** Printing the value *****************************/
+
 int	Fixed::getRawBits( void ) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
@@ -61,24 +71,11 @@ void	Fixed::setRawBits( int const raw )
 	this->value = raw;
 }
 
-float	Fixed::toFloat( void ) const
-{
-	std::cout << "Float value in Binary : " << std::bitset<16>(value) << std::endl;
-	float floatPart =  (float)value / (1 << fractionalBits);
-	std::cout << "              Decimal : " << floatPart << std::endl;
-	return (floatPart);
-}
-
-int		Fixed::toInt( void ) const
-{
-	int integerPart = ( value / (1 << fractionalBits) );
-	std::cout << "Int value in Binary   : " << std::bitset<16>(value) << std::endl;
-	std::cout << "            Decimal   : " << integerPart << std::endl;
-	return (integerPart);
-}
-
+/**************** Operation overload of the insertion («) operator ****************/
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed)
 {
-	os<<fixed.toFloat();
+	os << fixed.toFloat();
 	return (os);
 }
+
+/*****************************************************************************/

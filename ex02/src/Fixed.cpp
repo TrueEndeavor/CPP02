@@ -1,144 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 16:32:24 by lannur-s          #+#    #+#             */
-/*   Updated: 2024/05/09 16:32:24 by lannur-s         ###   ########.fr       */
+/*   Created: 2024/06/21 16:01:26 by lannur-s          #+#    #+#             */
+/*   Updated: 2024/06/21 16:01:26 by lannur-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-#include <bitset>
 
 const int	Fixed::fractionalBits = 8;
 
-/*****************************************************************************/
+/***************** Orthodox Canonical Format (Rule of 3) *********************/
 Fixed::Fixed() : value( 0 ) { }
 
-Fixed::Fixed( const int intVal ) : value ( intVal * (1 << fractionalBits) ) { }
-
-Fixed::Fixed( const float floatVal ) : value (  roundf(floatVal * (1 << fractionalBits) ) ) { }
-		
 Fixed::~Fixed() { }
 
 Fixed::Fixed( const Fixed& other ) { *this = other; }
 
 Fixed&	Fixed::operator=( const Fixed& other )
-{
+{ 
 	if (this != &other)
 		this->value = other.getRawBits();
 	return (*this);
 }
 
-/*****************************************************************************/
-int	Fixed::getRawBits( void ) const { return (this->value); }
+/************************ Parameterized constructors *************************/
 
-void	Fixed::setRawBits( int const raw ) { this->value = raw; }
+// Bitwise left shifting a binary number by one position is equivalent to multiplying it by 2
+// Q8.8 = 2^8
+// For example: 12 * (1 << 8) = 12 * 2^8 = 12 * 256 = 3072
+Fixed::Fixed( const int intVal ) : value ( intVal * (1 << fractionalBits) ) { }
 
-float	Fixed::toFloat( void ) const
+// Bitwise left shifting a binary number by one position is equivalent to multiplying it by 2
+// Q8.8 = 2^8
+// For example: 12.75 * (1 << 8) = 12.75 * 2^8 = 12.75 * 256 = 3264 (roundf to nearest int)
+Fixed::Fixed( const float floatVal ) : value (  roundf(floatVal * (1 << fractionalBits) ) ) { }
+
+/**************************** Printing the value *****************************/
+
+int	Fixed::getRawBits( void ) const
 {
-	float floatPart =  (float)value / (1 << fractionalBits);
-	return (floatPart);
+	return (this->value);
 }
 
-int		Fixed::toInt( void ) const
+void	Fixed::setRawBits( int const raw )
 {
-	int integerPart = ( value / (1 << fractionalBits) );
-	return (integerPart);
+	this->value = raw;
 }
 
-/*****************************************************************************/
-// 4 arithmetic operators: +, -, *, and /
-Fixed	Fixed::operator+( const Fixed &other ) const 
-{
-	Fixed temp;
-	
-	temp.setRawBits (this->getRawBits() + other.getRawBits());
-	return (temp);
-}
-
-Fixed	Fixed::operator-( const Fixed &other ) const 
-{
-	Fixed temp;
-	
-	temp.setRawBits (this->getRawBits() - other.getRawBits());
-	return (temp);
-}
-
-Fixed	Fixed::operator*( const Fixed &other ) const 
-{
-	Fixed temp;
-	
-	temp.setRawBits( this->getRawBits() * other.getRawBits() / (1 << fractionalBits) );
-	return (temp);
-}
-
-Fixed	Fixed::operator/( const Fixed &other ) const 
-{
-	Fixed temp;
-	
-	temp.setRawBits( this->getRawBits() * other.getRawBits() * (1 << fractionalBits) );
-	return (temp);
-}
-
-/*****************************************************************************/
-// 4 increment/decrement operators: ++i, --i, i++, i--
-Fixed &Fixed::operator++()
-{
-	this->value += 1;
-	return *this;
-}
-
-Fixed &Fixed::operator--()
-{
-	this->value --;
-	return *this;
-}
-
-Fixed	Fixed::operator++( int )
-{
-	//Fixed	tmp(*this);
-	return (++(*this));
-	//return tmp;
-}
-
-Fixed	Fixed::operator--( int )
-{
-	Fixed	tmp(*this);
-	--(*this);
-	return tmp;
-}
-
-/*****************************************************************************/
-// 6 comparison operators: >, <, >=, <=, == and !=
-bool	Fixed::operator>( const Fixed &other ) const { return ( this->value > other.value ); }
-
-bool	Fixed::operator<( const Fixed &other ) const { return ( this->value < other.value ); }
-
-bool	Fixed::operator>=( const Fixed &other ) const { return ( this->value >= other.value ); }
-
-bool	Fixed::operator<=( const Fixed &other ) const { return ( this->value <= other.value ); }
-
-bool	Fixed::operator==( const Fixed &other ) const { return ( this->value == other.value ); }
-
-bool	Fixed::operator!=( const Fixed &other ) const { return ( this->value != other.value ); }
-
-// Helper functions for the comparisons
-Fixed const &Fixed::min(Fixed const &a, Fixed const &b) { return a < b ? a : b; }
-
-Fixed const &Fixed::max(Fixed const &a, Fixed const &b) { return a > b ? a : b; }
-
-Fixed const &min(Fixed const &a, Fixed const &b) { return Fixed::min(a, b); }
-
-Fixed const &max(Fixed const &a, Fixed const &b) { return Fixed::max(a, b); }
-
-/*****************************************************************************/
-// Operator overloaded function
+/**************** Operation overload of the insertion («) operator ****************/
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed)
 {
-	os<<fixed.toFloat();
+	os << fixed.toFloat();
 	return (os);
 }
+
+/*****************************************************************************/

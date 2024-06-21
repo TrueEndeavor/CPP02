@@ -16,6 +16,7 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+#include "utils.hpp"
 
 #define RED "\033[0;91m"
 #define GREEN "\033[0;92m"
@@ -35,11 +36,12 @@ class	Fixed
 	public:
 		// Orthodox-Canonical Form - Rule of Three
 		Fixed();								  // Default constructor
-		Fixed( const int );						  // Parameterized constructor - int
-		Fixed( const float );					  // Parameterized constructor - float
 		Fixed( const Fixed &other );			  // Copy constructor
 		Fixed&	operator=( const Fixed &other );  // Copy assignment operator
 		~Fixed();								  // Destructor
+
+		Fixed( const int );						  // Parameterized constructor - int
+		Fixed( const float );					  // Parameterized constructor - float
 
 		// returns the raw value of the fixed-point value
 		int		getRawBits( void ) const;
@@ -50,10 +52,15 @@ class	Fixed
 		int		toInt( void ) const;
 		// converts the fixed-point value to a floating-point value
 		float	toFloat( void ) const;
+		
+		// converts the fixed-point value to a floating-point value
+		std::string	toBin( void ) const;
 };
 
 // Operation overload of the insertion («) operator that inserts a floating-point representation
 // of the fixed-point number into the output stream object passed as parameter.
 std::ostream &operator <<(std::ostream &os, const Fixed &fixed);
+
+void	printFloatBinary(float f);
 
 #endif

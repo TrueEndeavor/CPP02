@@ -24,7 +24,9 @@ YELLOW=\033[0;33m
 NC=\033[0m # No Color
 
 SRC =  main.cpp \
-		Fixed.cpp
+		Fixed.cpp \
+		Fixed_conv.cpp \
+		utils.cpp
 
 OBJ_DIR= obj
 

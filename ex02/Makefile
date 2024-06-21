@@ -23,8 +23,12 @@ GREEN=\033[0;32m
 YELLOW=\033[0;33m
 NC=\033[0m # No Color
 
-SRC =  main.cpp \
-		Fixed.cpp
+SRC = main.cpp \
+		Fixed.cpp \
+		Fixed_conv.cpp \
+		Fixed_arithmetic.cpp \
+		Fixed_comparisons.cpp \
+		utils.cpp
 
 OBJ_DIR= obj
 

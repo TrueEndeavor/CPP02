@@ -11,9 +11,17 @@
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+#include <cstdlib>
 
 /* 
   Ex00: My First Class in Orthodox Canonical Form
+  
+  There is no datatype named "fixed point" in  C++.
+  It is useful for Embedded systems or Data Science - where resources are tight,
+  every bit of power and speed counts.
+  
+  Here we try to put together a class as the datatype, with varying ways to 
+  initialize it and to diplay its content
 */
 
 int main()

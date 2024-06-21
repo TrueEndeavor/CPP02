@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lannur-s <lannur-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,6 +14,7 @@
 
 const int	Fixed::fractionalBits = 8;
 
+/***************** Orthodox Canonical Format (Rule of 3) *********************/
 Fixed::Fixed() : value( 0 )
 {
 	std::cout << "Default constructor called" << std::endl;
@@ -38,6 +39,8 @@ Fixed&	Fixed::operator=( const Fixed& other )
 	return (*this);
 }
 
+/**************************** Printing the value *****************************/
+
 int	Fixed::getRawBits( void ) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
@@ -49,3 +52,5 @@ void	Fixed::setRawBits( int const raw )
 	std::cout << "setRawBits member function called" << std::endl;
 	this->value = raw;
 }
+
+/*****************************************************************************/
