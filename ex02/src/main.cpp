@@ -13,7 +13,7 @@
 #include "Fixed.hpp"
 #include <bitset>
 /* 
-  Ex01: Now we’re talking
+  Ex02: Now we’re talking
   (Fixed-Point operations)
 */
 
