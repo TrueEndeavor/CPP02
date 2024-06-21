@@ -48,26 +48,31 @@ Fixed	Fixed::operator/( const Fixed &other ) const
 }
 
 /*****************************************************************************/
-// 4 increment/decrement operators: ++i, --i, i++, i--
+// pre-increment ++i
 Fixed &Fixed::operator++()
 {
 	this->value += 1;
 	return *this;
 }
 
+// Pre-decrement --i
 Fixed &Fixed::operator--()
 {
 	this->value --;
 	return *this;
 }
 
+// Post-increment i++
 Fixed	Fixed::operator++( int )
 {
 	Fixed	ret(*this);
+	std::cout << "this.value = " << ret.value << std::endl;
+	std::cout << "ret.value = " << ret.value << std::endl;
 	++(*this);
 	return ret;
 }
 
+// Post-decrement i--
 Fixed	Fixed::operator--( int )
 {
 	Fixed	ret(*this);

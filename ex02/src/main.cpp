@@ -15,6 +15,10 @@
 /* 
   Ex02: Now we’re talking
   (Fixed-Point operations)
+  
+  There is no datatype named "fixed point" in  C++.
+  It is useful for Embedded systems or Data Science - where resources are tight,
+  every bit of power and speed counts.
 */
 
 int main()

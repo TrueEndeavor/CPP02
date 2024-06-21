@@ -16,6 +16,10 @@
   Ex01: Towards a more useful fixed-point number class
   (Fixed-Point Number Representation and Conversion)
   
+  There is no datatype named "fixed point" in  C++.
+  It is useful for Embedded systems or Data Science - where resources are tight,
+  every bit of power and speed counts.
+  
   Here we try implement a "Q8.8 notation" - limited-precision
   The Q notation is just a way to split bits between the integer and fractional parts of a fixed-point number. 
   Like, Q8.8 means 8 bits for the integer part and 8 bits for the fractional part. 
@@ -25,7 +29,7 @@
   https://float.exposed/0x414c0000
   
 	Float value (normal format) : 12.75
-	Float value in Binary       : 0000110011000000
+	Float value into Q8.8 binary: 0000110011000000
 	Fixed point number (output) : 3264
 */
 
