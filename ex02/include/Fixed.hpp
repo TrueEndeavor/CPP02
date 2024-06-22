@@ -16,6 +16,7 @@
 #include <string>
 #include <iostream>
 #include <cmath>
+#include <bitset>
 #include "utils.hpp"
 
 #define RED "\033[0;91m"

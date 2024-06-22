@@ -25,9 +25,10 @@ NC=\033[0m # No Color
 
 SRC = main.cpp \
 		Fixed.cpp \
-		Fixed_conv.cpp \
 		Fixed_arithmetic.cpp \
 		Fixed_comparisons.cpp \
+		Fixed_conv.cpp \
+		Fixed_incrdecr.cpp \
 		utils.cpp
 
 OBJ_DIR= obj
