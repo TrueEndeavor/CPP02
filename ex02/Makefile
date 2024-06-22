@@ -27,7 +27,6 @@ SRC = main.cpp \
 		Fixed.cpp \
 		Fixed_arithmetic.cpp \
 		Fixed_comparisons.cpp \
-		Fixed_conv.cpp \
 		Fixed_incrdecr.cpp \
 		utils.cpp
 
